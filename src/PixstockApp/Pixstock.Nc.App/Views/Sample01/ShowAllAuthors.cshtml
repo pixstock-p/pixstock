@@ -1,0 +1,14 @@
+@{ ViewData["Title"] = "全著者データの一覧"; }
+
+<h4>全著者データの一覧</h4>
+
+@section Scripts {
+    <script type="text/javascript">
+    console.debug("TEST");
+        $(function () {
+            $.getJSON("/Sample01/GetAllAuthors", function (result) {
+                console.debug(result);
+            });
+        });
+    </script>
+}

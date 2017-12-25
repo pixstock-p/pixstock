@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Katalib\Katalib.Nc.Standard\Katalib.Nc.Standard.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Infra\Pixstock.Nc.Srv.Infra.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Model\Pixstock.Nc.Srv.Model.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Gateway\Pixstock.Nc.Srv.Gateway.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.0-rc1" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0002" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

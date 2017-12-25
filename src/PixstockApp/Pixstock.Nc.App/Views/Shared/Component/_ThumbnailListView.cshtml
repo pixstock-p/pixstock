@@ -1,0 +1,37 @@
+@section Scripts{
+<script type="text/javascript">
+
+</script>
+}
+
+<script type="text/html" id="thumbnail_list_view">
+    <div class="ui link cards">
+        <!-- ko foreach: $data.thumbnailList -->
+            <div class="card" data-bind="click: onClick" style="width: 100px">
+                <div class="image">
+                    <img data-bind="src: [thumbnailSourceUri]">
+                </div>
+                <div class="content">
+                    <div class="header">{{label}}</div>
+                    <div class="meta">
+                    </div>
+                    <div class="description">
+                    </div>
+                </div>
+                <!--
+                <div class="extra content">
+                    <span class="right floated">
+                    </span>
+                    <span>
+                        <i class="user icon"></i>
+                    </span>
+                </div>
+                -->
+            </div>
+        <!-- /ko -->
+    </div>
+</script>
+
+<script type="text/html" id="cardItemTemplate_Root">
+    
+</script>

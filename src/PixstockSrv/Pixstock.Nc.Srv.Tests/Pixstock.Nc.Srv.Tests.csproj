@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <Content Include="*.config">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <EmbeddedResource Include="Assets\Sql\*.txt" />
+      <EmbeddedResource Include="Assets\Sql\App\*.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
+    <PackageReference Include="Moq" Version="4.7.145" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-rc3" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PixstockBase\Pixstock.Base.Infra\Pixstock.Base.Infra.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Model\Pixstock.Nc.Srv.Model.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Common\Pixstock.Nc.Srv.Common.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Infra\Pixstock.Nc.Srv.Infra.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Core\Pixstock.Nc.Srv.Core.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv\Pixstock.Nc.Srv.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Ext\Pixstock.Nc.Srv.Ext.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Ext.FullBuild\Pixstock.Nc.Srv.Ext.FullBuild.csproj" />
+  </ItemGroup>
+
+</Project>

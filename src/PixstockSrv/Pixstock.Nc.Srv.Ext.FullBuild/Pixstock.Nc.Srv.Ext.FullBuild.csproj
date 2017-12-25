@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="4.0.0" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-rc3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Ext\Pixstock.Nc.Srv.Ext.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Common\Pixstock.Nc.Srv.Common.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Infra\Pixstock.Nc.Srv.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS [svp_AppMetaInfo];
+DROP TABLE IF EXISTS [svp_Content];
+DROP TABLE IF EXISTS [svp_Category];
+DROP TABLE IF EXISTS [svp_Label];
+DROP TABLE IF EXISTS [svp_P_Label2Content];
+
+delete from sqlite_sequence where name='svp_AppMetaInfo';
+delete from sqlite_sequence where name='svp_Content';
+delete from sqlite_sequence where name='svp_Category';
+delete from sqlite_sequence where name='svp_Label';

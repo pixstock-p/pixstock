@@ -1,0 +1,249 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Scripts{
+<script type="text/javascript">
+const BASEURL = "http://localhost:5000";
+const FETCH_THUMBNAIL_URL = "/aapi/thumbnail/{id}/thumb";
+
+/**
+ * カテゴリツリーのデータモデル
+ */
+class CategoryTreeItem {
+    /**
+     * コンストラクタ.
+     *
+     * data Categoryオブジェクト
+     */
+    constructor(data) {
+        this._SubCategory = ko.observableArray();
+        this.IsTop = false;
+
+        data && Object.assign(this, data); // 内部で使う以外のデータは、全てマッピングする。
+
+        if(this.IsTop)
+            this.id = 1;
+    }
+
+    onClick() {
+        console.debug("アイテムをクリックしました = " + this.label);
+
+        this.loadSubcategory();
+
+        this.loadCategoryThumbnail();
+    }
+
+    /**
+     * カテゴリの子階層カテゴリを取得する
+     */
+    loadSubcategory() {
+        console.debug("execute loadSubcategory");
+
+        let obj = this;
+        $.getJSON("/cli/Sample01/RequestCategory2", {CategoryId: this.id}, function(result){
+                if(result == null){
+                    console.debug("データの取得に失敗しました");
+                    return;
+                }
+
+                $.each(result,function(index,value,arr){
+                    let category = new CategoryTreeItem(value);
+                    obj.SubCategory.push(category);
+                });
+
+                $('.ui.accordion').accordion('refresh',{exclusive: false}); // アコーディオンビヘイビア再設定
+            });
+    }
+
+    /**
+     * コンテント情報を更新する
+     */
+    loadCategoryThumbnail() {
+        vm.thumbnailList.removeAll();
+        vm.customTemplate_Center = "thumbnail_list_view";
+
+        var newItems = ko.utils.arrayMap(this.contents, function(prop){
+                // prop ... {Content}
+                return new ThumbnailListItem(prop);
+            });
+        vm.thumbnailList.push.apply(vm.thumbnailList, newItems);
+    }
+
+    get SubCategory() {
+        return this._SubCategory;
+    }
+
+    get label() {
+        return this.name;
+    }
+}
+
+/**
+ * サムネイル表示ビューの項目データモデル
+ */
+class ThumbnailListItem {
+    /**
+     * コンストラクタ.
+     *
+     * data ... {Content}
+     */
+    constructor(data) {
+        this.thumbnailSourceUri = ko.observable(); // クラスメンバは、変更通知プロパティとして定義する。
+        data && Object.assign(this, data);
+
+        this.loadThumbnail();
+    }
+
+    /**
+     * サムネイル画像データを取得.
+     *
+     * サーバから、サムネイル画像のURI(または、サムネイルのバイナリデータ)を取得します。
+     */
+    loadThumbnail() {
+        // note: メンバのContentから、関連付けられているサムネイル画像情報キーを取得し、
+        //       サムネイル画像情報を取得する。
+
+        let obj = this;
+        $.getJSON("/cli/Sample01/ThumbnailList",{ThumbnailHash: this.thumbnailKey}, function(result){
+            console.debug("Response="+result.thumbnailSourceUri);
+            obj.thumbnailSourceUri(result.thumbnailSourceUri);
+        });
+    }
+
+    onClick() {
+        console.debug("アイテムをクリックしました = " + this.name);
+        vm.contentPreview.id = this.id;
+        vm.contentPreview.title = this.name;
+        vm.contentPreview.contentSourceUri = "/cli/Sample01/ContentImageFile/" + this.id;
+        vm.customTemplate_Center = "contentpreview_view";
+
+        adjustImageContainer();
+    }
+
+    get label() {
+        return this.name;
+    }
+}
+
+function onClick() {
+        console.debug("[2]アイテムをクリックしました = " );
+    }
+
+// knockoutとSemanticsUIの連携
+function VM(){
+    this.often='3';
+    this.wishNewsletter = false;
+    this.rootDirectory = new CategoryTreeItem({name: "Top", IsTop: true});
+    this.thumbnailList = ko.observableArray();
+    this.contentPreview = new ContentPreviewItem({title:""});
+    this.container='DEFULT';
+    this.customTemplateName='DEFAULT';
+    this.customTemplate_Left="category_tree_view";
+    this.customTemplate_Center="thumbnail_list_view";
+    this.imageSampleUrl="";
+    ko.track(this);
+}
+
+var vm = new VM();
+ko.punches.enableAll();
+
+// ---------------
+// img要素src属性の、ViewModeバインディング方法のハック
+//    https://qiita.com/trapple/items/5f566784364087b82428
+ko.bindingHandlers['src'] = {
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var src = valueAccessor().map(function(item){return ko.unwrap(item)});
+        if(src.indexOf(undefined)==-1){
+            element.setAttribute('src',src.join(''));
+        }
+    }
+}
+
+// ---------------
+// checkbox要素のハック
+// 
+ko.bindingHandlers['checkbox'] = {
+    init(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        var options = ko.unwrap(valueAccessor())||{};
+        if(!options.onChange){
+            options.onChange = function(){
+                console.debug("checkboxの変更イベントです");
+                $(this).triggerHandler('click');
+            };
+        }
+        $(element)['checkbox'](options);
+    }
+};
+
+// ---------------
+// 初期化処理（エントリポイント）をマニュアルタイミングで呼び出すためのハンドラ
+//
+// 将来は、この処理をアプリ起動と同時に自動呼び出しで処理を開始する。
+ko.bindingHandlers['executeTemplateButton'] = {
+    init(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        console.debug("executeTemplateButtonのハンドラ追加");
+        element.onclick = function(){
+            vm.rootDirectory.loadSubcategory();
+        };
+    }
+};
+
+// ----------------
+// Bindingでは設定できないイベントのハンドル
+// 対象要素がリサイズされたかポーリングし、
+// リサイズされている場合にコールバック関数を呼び出す
+
+// コンテント画像コンテナの、画像サイズを設定する
+$("#CTN_CENTER").exResize(function() {
+    adjustImageContainer();
+});
+
+// -----------------------------
+// knockoutに適応する
+ko.applyBindings(vm);
+
+// -----------------------------
+// アコーディオンコントロール用(自動リフレッシュ)
+$('.ui.accordion').accordion("refresh", { exclusive: false });
+</script>
+}
+
+<div class="ui grid" style="height:100vh">
+    <div class="one column row" style="height: 15vh">
+        <div class="column">
+            <div>
+                <button class="ui button" data-bind="executeTemplateButton:{}">初期化：手動実行</button>
+            </div>
+            <span data-bind="html: container">test</span>
+        </div>
+    </div>
+    <div class="column row" style="height: 70vh;overflow:hidden;">
+        <div class="column" style="height:inherit;">
+            <div class="ui grid" style="height:inherit;">
+                <div id="CTN_LEFT" class="two wide column"  style="overflow-y: auto; overflow-x: auto;">
+                    <!-- LEFT -->
+                    <div data-bind="template: {name: customTemplate_Left, data: rootDirectory.SubCategory}"></div>
+                </div>
+                <div id="CTN_CENTER" class="twelve wide column" style="overflow-y: auto; overflow-x: hidden;">
+                    <div data-bind="template: {name: customTemplate_Center, data: vm}"></div>
+                </div>
+                <div id="CTN_RIGHT" class="two wide column"  style="overflow-y: auto; overflow-x: auto;">RIGHT</div>
+            </div>
+        </div>
+    </div>
+    <div class="one column row" style="height: 15vh">
+        <div class="column">キール</div>
+    </div>
+</div>
+
+
+<!-- Template -->
+<!-- 将来的には別ファイルにする -->
+
+    <script type="text/html" id="myTemplate">
+      <i>myTemplate</i>
+    </script>
+
+
+</div>

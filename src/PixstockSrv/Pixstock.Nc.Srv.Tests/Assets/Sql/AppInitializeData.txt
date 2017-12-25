@@ -1,0 +1,19 @@
+﻿-- INSERT INTO svp_Workspace (Id, Name, PhysicalSpacePath, VirtualSpacePath,CreatedDate, UpdatedDate) VALUES (1, "UnitTestWorkspace", "C:\DevSVP\Test_Physical", "C:\DevSVP\Test_Filewatcher", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+INSERT INTO svp_Category (Id, Name, CreatedDate, UpdatedDate) VALUES (2, "テストカテゴリA", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+INSERT INTO svp_Category (Id, Name, CreatedDate, UpdatedDate) VALUES (3, "テストカテゴリA2", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+INSERT INTO svp_Category (Id, Name, CreatedDate, UpdatedDate) VALUES (4, "テストカテゴリA3", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+
+INSERT INTO svp_Label (Id, Name, CreatedDate, UpdatedDate) VALUES (1, "テストラベル", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+INSERT INTO svp_Label (Id, Name, CreatedDate, UpdatedDate, CategoryId) VALUES (2, "テストラベル_2", "2009-08-24 23:10:15", "2009-08-24 23:10:15", 1);
+-- INSERT INTO svp_Tag (Id, Name, CreatedDate, UpdatedDate) VALUES (1, "テストタグ1", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+-- INSERT INTO svp_Tag (Id, Name, CreatedDate, UpdatedDate) VALUES (2, "テストタグ2", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+-- INSERT INTO svp_Tag (Id, Name, CreatedDate, UpdatedDate) VALUES (3, "テストタグ3", "2009-08-24 23:10:15", "2009-08-24 23:10:15");
+
+INSERT INTO svp_Content (Id, Name, IdentifyKey, CreatedDate, UpdatedDate) VALUES (1, "Content1", "IDEN_Content1","2009-08-24 23:10:15", "2009-08-24 23:10:15");
+INSERT INTO svp_Content (Id, Name, IdentifyKey, CreatedDate, UpdatedDate) VALUES (2, "Content2", "IDEN_Content1","2009-08-24 23:10:15", "2009-08-24 23:10:15");
+INSERT INTO svp_Content (Id, Name, IdentifyKey, CreatedDate, UpdatedDate) VALUES (3, "Content3", "IDEN_Content1","2009-08-24 23:10:15", "2009-08-24 23:10:15");
+-- INSERT INTO svp_Content_Image (Id) VALUES (1);
+-- INSERT INTO svp_P_Tag2Artifact (Id, Tag_Id, Artifact_Id) VALUES (1, 1, 1);
+-- INSERT INTO svp_P_Tag2Artifact (Id, Tag_Id, Artifact_Id) VALUES (2, 2, 1);
+
+INSERT INTO svp_P_Label2Content (ContentId, LabelId) VALUES (1, 2);

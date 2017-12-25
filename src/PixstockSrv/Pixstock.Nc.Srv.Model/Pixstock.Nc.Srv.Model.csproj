@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Katalib\Katalib.Nc.Entity\Katalib.Nc.Entity.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Common\Pixstock.Nc.Srv.Common.csproj" />
+    <ProjectReference Include="..\Pixstock.Nc.Srv.Infra\Pixstock.Nc.Srv.Infra.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
+  </ItemGroup>
+</Project>

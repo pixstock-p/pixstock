@@ -1,0 +1,49 @@
+﻿/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+/* ThumbnailListView */
+.ui.cards > .card {
+    overflow-x: hidden;
+}
+
+.img-container--object-fit {
+    position: relative;
+    /*width: 350px;*/
+    height: 100%;
+    border: 1px solid darkgray;
+}
+.img-container--object-fit img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+.ui.cards > .card > .content, .ui.card > .content {
+    padding: 0.1em;
+    padding-top: 0.5em;
+}
+
+.ui.cards > .card > .content > .header:not(.ui), .ui.card > .content > .header:not(.ui) {
+    font-weight: unset;
+    font-size: 1em;
+}
