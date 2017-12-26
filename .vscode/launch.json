@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/PixstockApp/Pixstock.Nc.App/bin/Debug/netcoreapp2.0/Pixstock.Nc.App.dll",
+            "program": "${workspaceFolder}/src/PixstockApp/Pixstock.Nc.App/bin/Debug/netcoreapp2.0/Pixstock.Nc.App.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/PixstockApp/Pixstock.Nc.App",
+            "cwd": "${workspaceFolder}/src/PixstockApp/Pixstock.Nc.App",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {

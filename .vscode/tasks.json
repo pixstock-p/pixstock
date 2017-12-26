@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/PixstockApp/Pixstock.Nc.App/Pixstock.Nc.App.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "docker restore",
+            "type": "shell",
+            "command": "dotnet restore src/Pixstock.sln --packages ./.nuget",
+            "presentation": {
+                "reveal": "never"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "docker build srv",
+            "type": "shell",
+            "command": "docker build -t local/pixsrv -f ./src/PixstockSrv/Dockerfile .",
+            "presentation": {
+                "reveal": "never"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
