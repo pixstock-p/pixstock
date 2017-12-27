@@ -41,10 +41,12 @@ namespace Pixstock.Nc.Srv.Tests
                 if (isUsingInMemoryDatabase)
                 {
                     container.Register<IAppDbContext, TestAppDbContext>(Lifestyle.Scoped);
+                    container.Register<IThumbnailDbContext,TestThumbnailDbContext>(Lifestyle.Scoped);
                 }
                 else
                 {
                     container.Register<IAppDbContext, AppDbContext>(Lifestyle.Scoped);
+                    container.Register<IThumbnailDbContext, ThumbnailDbContext>(Lifestyle.Scoped);
                 }
 
                 container.Verify();

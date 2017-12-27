@@ -16,16 +16,45 @@
             "type": "shell",
             "command": "dotnet restore src/Pixstock.sln --packages ./.nuget",
             "presentation": {
-                "reveal": "never"
+                "reveal": "always"
             },
             "problemMatcher": []
         },
         {
             "label": "docker build srv",
             "type": "shell",
-            "command": "docker build -t local/pixsrv -f ./src/PixstockSrv/Dockerfile .",
+            "command": "docker build -t local/pixsrv -f ./src/PixstockSrv/Pixstock.Nc.Srv/Dockerfile .",
             "presentation": {
-                "reveal": "never"
+                "reveal": "always"
+            },
+            "problemMatcher": []
+        },
+        {
+            // シェルスクリプトから直接コマンドを実行しても良い
+            "label": "docker run srv",
+            "type": "shell",
+            "command": "docker run -ti -p 5080:80 local/pixsrv",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "docker build srvtest",
+            "type": "shell",
+            "command": "docker build -t local/pixsrvtest -f ./src/PixstockSrv/Pixstock.Nc.Srv.Tests/Dockerfile .",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": []
+        },
+        {
+            // シェルスクリプトから直接コマンドを実行しても良い
+            "label": "docker run srvtest",
+            "type": "shell",
+            "command": "docker run -ti local/pixsrvtest",
+            "presentation": {
+                "reveal": "always"
             },
             "problemMatcher": []
         }
