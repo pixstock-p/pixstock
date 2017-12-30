@@ -4,5 +4,9 @@
   "description": "",
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "merge-stream": "^1.0.1"
   }
 }
