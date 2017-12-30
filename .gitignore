@@ -31,3 +31,5 @@ $tf*/
 .nuget/
 packages/
 *.scgdat
+node_modules/
+packages-lock.json

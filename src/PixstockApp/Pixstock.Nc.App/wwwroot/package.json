@@ -1,0 +1,8 @@
+{
+  "name": "nmptest",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.2"
+  }
+}
