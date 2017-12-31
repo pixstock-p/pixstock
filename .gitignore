@@ -32,4 +32,5 @@ $tf*/
 packages/
 *.scgdat
 node_modules/
-packages-lock.json
+**/wwwroot/stella/*
+**/PixstockApp/**/dest/*

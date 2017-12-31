@@ -1,0 +1,26 @@
+{
+  "name": "pixstock.nc.app.core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dest/index.js",
+  "files": [
+    "dest"
+  ],
+  "scripts": {
+    "ngc": "ngc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/core": "^5.0.0",
+    "rxjs": "^5.5.2",
+    "zone.js": "^0.8.14"
+  },
+  "devDependencies": {
+    "@angular/compiler": "^5.0.0",
+    "@angular/compiler-cli": "^5.0.0",
+    "typescript": "~2.4.2"
+  }
+}
