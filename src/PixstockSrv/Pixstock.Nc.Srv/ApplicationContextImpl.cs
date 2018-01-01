@@ -25,7 +25,7 @@ namespace Pixstock.Nc.Srv
 
         private string _ApplicationDirectoryPath;
 
-        private bool _alreadyDisposed = false;
+        //private bool _alreadyDisposed = false;
 
         private SimpleInjector.Container _Container;
 
@@ -259,12 +259,13 @@ namespace Pixstock.Nc.Srv
             var mss = assm.GetManifestResourceNames();
 
             // この方法で読み込みができるリソースファイルの種類は「埋め込みリソース」を設定したもののみです。
-            var r = new Regex(string.Format("PixstockSrv.Assets.Sql.{0}.{1}", dbselect, "upgrade - " + currentVersion + "-(.+)\\.txt"));
+            var r = new Regex(string.Format("Pixstock.Nc.Srv.Assets.Sql.{0}.{1}", dbselect, "upgrade - " + currentVersion + "-(.+)\\.txt"));
             foreach (var rf in assm.GetManifestResourceNames())
             {
                 var matcher = r.Match(rf);
                 if (matcher.Success && matcher.Groups.Count > 1)
                 {
+                    _logger.Info("{0}データベースのアップデート({1} -> {2})", dbselect, version, matcher.Groups[1].Value);
                     UpgradeDatabase(rf, @dbc);
                     currentVersion = matcher.Groups[1].Value; // 正規表現にマッチした箇所が、マイグレート後のバージョンになります。
                 }

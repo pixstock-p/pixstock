@@ -1,1 +1,2 @@
-export * from './mydatelib.module';
+export * from './mydatalib/mydatelib.module';
+export * from './dao/dao.module';

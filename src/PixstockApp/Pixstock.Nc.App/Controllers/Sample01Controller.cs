@@ -17,7 +17,7 @@ namespace Pixstock.Nc.App.Controllers
         /// <summary>
         /// バックエンドサーバURL
         /// </summary>
-        static string BASEURL = "http://localhost:5000/aapi";
+        static string BASEURL = "http://localhost:5080/aapi";
 
         /// <summary>
         /// サムネイル画像取得API
@@ -55,7 +55,7 @@ namespace Pixstock.Nc.App.Controllers
             Console.WriteLine("バックエンドサーバにリクエストを送信する");
 
             // バックエンドサーバにリクエストを送信する
-            string requestUrl = "http://localhost:5000/aapi/category/1";
+            string requestUrl = BASEURL + "/aapi/category/1";
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(requestUrl);
 
@@ -81,12 +81,13 @@ namespace Pixstock.Nc.App.Controllers
         /// </remarks>
         /// <param name="category_id">取得したいカテゴリ情報キー</param>
         /// <returns>カテゴリ情報</returns>
-        private Category LoadCategory(long category_id)
+        [HttpGet("RequestCategory1")]
+        public Category LoadCategory([FromQuery]CategoryParam param)
         {
-            string requestUrl = "http://localhost:5000/aapi";
+            string requestUrl = BASEURL;
             var client = new RestClient(requestUrl);
             var request = new RestRequest("category/{id}", Method.GET);
-            request.AddUrlSegment("id", category_id);
+            request.AddUrlSegment("id", param.CategoryId);
             request.AddQueryParameter("lla_order","NAME_ASC");
 
             var response = client.Execute<ResponseAapi<Category>>(request);
@@ -107,7 +108,7 @@ namespace Pixstock.Nc.App.Controllers
             {
                 //Console.WriteLine("Request LinkType=la = " + category_id + ":" + content_id);
                 var request_link_la = new RestRequest("category/{id}/la/{content_id}", Method.GET);
-                request_link_la.AddUrlSegment("id", category_id);
+                request_link_la.AddUrlSegment("id", param.CategoryId);
                 request_link_la.AddUrlSegment("content_id", content_id);
 
                 var response_link_la = client.Execute<ResponseAapi<Content>>(request_link_la);
@@ -133,10 +134,12 @@ namespace Pixstock.Nc.App.Controllers
             Console.WriteLine("Request Query Paramerer=" + param.CategoryId);
 
             // バックエンドサーバにリクエストを送信する
-            string requestUrl = "http://localhost:5000/aapi";
+            string requestUrl = BASEURL;
             var client = new RestClient(requestUrl);
             var request = new RestRequest("category/{id}/cc", Method.GET); // TODO: 現時点では、リンク情報(cc)一覧のみ取得する
             request.AddUrlSegment("id", param.CategoryId);
+
+            Console.WriteLine("リクエストを開始します = " + requestUrl);
 
             IRestResponse<ResponseAapi<List<Category>>> response = client.Execute<ResponseAapi<List<Category>>>(request);
 
@@ -153,7 +156,7 @@ namespace Pixstock.Nc.App.Controllers
             List<Category> responseCategoryList = new List<Category>();
             foreach (var linked_Category in response.Data.Value)
             {
-                var category = LoadCategory(linked_Category.Id);
+                var category = LoadCategory(new CategoryParam{CategoryId = linked_Category.Id});
                 if (category != null)
                 {
                     responseCategoryList.Add(category);

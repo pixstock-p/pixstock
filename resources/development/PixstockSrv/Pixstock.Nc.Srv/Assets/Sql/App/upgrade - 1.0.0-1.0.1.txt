@@ -1,0 +1,1 @@
+INSERT INTO [svp_Workspace] (Id, Name, PhysicalPath, CreatedDate, UpdatedDate) VALUES (1, "PRIVATE", "/opt/pixstock/pfs", "2009-08-24 23:10:15","2009-08-24 23:10:15");

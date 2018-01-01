@@ -12,6 +12,16 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "build srv",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/PixstockSrv/Pixstock.Nc.Srv/Pixstock.Nc.Srv.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "docker restore",
             "type": "shell",
             "command": "dotnet restore src/Pixstock.sln --packages ./.nuget",
@@ -33,7 +43,7 @@
             // シェルスクリプトから直接コマンドを実行しても良い
             "label": "docker run srv",
             "type": "shell",
-            "command": "docker run -ti -p 5080:80 local/pixsrv",
+            "command": "docker run -ti -p 5080:80 -v /opt/pixstock:/opt/pixstock/pfs local/pixsrv",
             "presentation": {
                 "reveal": "always"
             },

@@ -8,6 +8,10 @@ COPY .nuget .
 
 WORKDIR /code
 COPY src/ .
+
+## 開発用のデータを含んだコンフィグ情報を設定する
+COPY resources/development/ .
+
 RUN dotnet restore --source /nugetpack
 RUN dotnet publish --output /output --configuration Release --no-restore
 

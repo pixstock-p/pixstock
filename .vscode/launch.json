@@ -8,11 +8,11 @@
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build srv",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/PixstockApp/Pixstock.Nc.App/bin/Debug/netcoreapp2.0/Pixstock.Nc.App.dll",
+            "program": "${workspaceFolder}/src/PixstockSrv/Pixstock.Nc.Srv/bin/Debug/netcoreapp2.0/Pixstock.Nc.Srv.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/PixstockApp/Pixstock.Nc.App",
+            "cwd": "${workspaceFolder}/src/PixstockSrv/Pixstock.Nc.Srv",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
