@@ -1,11 +1,11 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContentListComponent } from './content-list/content-list.component';
+import { CategoryExplorerComponent } from './category-explorer/category-explorer.component';
 
 const appRoutes: Routes = [
     {
-        path: 'contents',
-        component: ContentListComponent
+        path: 'category',
+        component: CategoryExplorerComponent
     }
 ];
 

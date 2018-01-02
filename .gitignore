@@ -33,4 +33,5 @@ packages/
 *.scgdat
 node_modules/
 **/wwwroot/stella/*
+**/wwwroot/pioneer/*
 **/PixstockApp/**/dest/*
