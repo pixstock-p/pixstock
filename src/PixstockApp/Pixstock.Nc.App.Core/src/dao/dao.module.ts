@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import { ContentDaoService } from './../dao/contentdao.service';
+import { ContentDaoService } from './contentdao.service';
 import { CategoryDaoService } from './categorydao.service';
+import { ThumbnailDaoService } from './thumbnaildao.service';
 
 @NgModule({
     imports: [
@@ -10,7 +11,8 @@ import { CategoryDaoService } from './categorydao.service';
     ],
     providers: [
         ContentDaoService,
-        CategoryDaoService
+        CategoryDaoService,
+        ThumbnailDaoService
     ]
 })
 export class DaoModule {}
