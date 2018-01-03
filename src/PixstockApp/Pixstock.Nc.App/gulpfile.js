@@ -8,5 +8,7 @@ gulp.task('cpy_module', function () {
     var bootstrap_js = gulp.src('./node_modules/bootstrap/dist/js/bootstrap.js')
         .pipe(gulp.dest('wwwroot/lib/bootstrap'));
 
-    return merge(bootstrap_css, bootstrap_js);
+    var jquery_js = gulp.src('./node_modules/jquery/dist/jquery.slim.js')
+        .pipe(gulp.dest('wwwroot/lib/jquery'));
+    return merge(bootstrap_css, bootstrap_js, jquery_js);
 });

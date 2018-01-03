@@ -1,4 +1,6 @@
 <p>
   category-explorer works!
 </p>
-<tree-root [nodes]="nodes" [options]="options"></tree-root>
+<tree-root #tree [nodes]="nodes" [options]="options"
+  (activate)="onEvent_Activate($event)"
+></tree-root>

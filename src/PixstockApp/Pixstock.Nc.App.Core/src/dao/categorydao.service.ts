@@ -23,4 +23,18 @@ export class CategoryDaoService {
             .toPromise()
             .then(response => response.json() as Category)
     }
+
+    /**
+     * RequestCategory2APIを呼び出す
+     */
+    getSubCategory(categoryId : Number): Promise<Category[]> {
+        return this.http.get(this.controllerUrl + "/RequestCategory2",
+            {
+                params: {
+                    CategoryId: categoryId
+                }
+            })
+            .toPromise()
+            .then(response => response.json() as Category[])
+    }
 }

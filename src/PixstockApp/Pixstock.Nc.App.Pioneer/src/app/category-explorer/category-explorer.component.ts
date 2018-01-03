@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Logger } from "angular2-logger/core";
+import { CategoryTreeItem } from './categoryTreeItem';
+import { ITreeOptions, TreeNode } from 'angular-tree-component';
+import { CategoryDaoService } from 'pixstock.nc.app.core/dest/src/dao/categorydao.service';
+import { Category } from 'pixstock.nc.app.core/dest/src/model/category';
 
 @Component({
   selector: 'app-category-explorer',
@@ -7,34 +12,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryExplorerComponent implements OnInit {
 
-  constructor() { }
+  nodes: any[] = [];
+
+  options: ITreeOptions = {
+    displayField: 'label',
+    getChildren: this.getChildren.bind(this)
+  };
+
+  /**
+   * コンストラクタ
+   * 
+   * @param _logger 
+   * @param categoryDaoService 
+   */
+  constructor(
+    private _logger: Logger,
+    private categoryDaoService: CategoryDaoService,
+  ) { }
 
   ngOnInit() {
+    this._logger.debug("カテゴリエクスプローラの初期化");
+    // ツリーの初期化
+    this.getContents(null, 1); // カテゴリID=1はルートノード
   }
 
-  nodes = [
-    {
-      id: 1,
-      name: 'root1',
-      children: [
-        { id: 2, name: 'child1' },
-        { id: 3, name: 'child2' }
-      ]
-    },
-    {
-      id: 4,
-      name: 'root2',
-      children: [
-        { id: 5, name: 'child2.1' },
-        {
-          id: 6,
-          name: 'child2.2',
-          children: [
-            { id: 7, name: 'subsub' }
-          ]
-        }
-      ]
-    }
-  ];
-  options = {};
+  onEvent_Activate(event: any) {
+    var node:TreeNode = event.node;
+
+    // メインアプリケーションの外部公開APIを呼び出す
+    this._logger.info("[Pioneer][CategoryExplorerComponent][onEvent_Activate] : カテゴリツリーの選択(id=" + node.data.category.id);
+    var pa:any = window.parent;
+    pa.showContentListPanelByCategory(node.data.category.id);
+  }
+
+  /**
+   * 
+   * @param node 
+   */
+  getChildren(node: TreeNode) {
+    return new Promise((resolve, reject) => {
+      this.getContents(node.data, node.data.category.id).then(categories => {
+        resolve(node.data.children);
+      });
+    });
+  }
+
+  /**
+   * サービスからカテゴリ情報を取得し、ツリー項目を設定する
+   * 
+   * @param parent 親階層のノード。
+   * @param categoryId 
+   */
+  private getContents(parent: CategoryTreeItem, categoryId: Number): Promise<Category[]> {
+    return this.categoryDaoService.getSubCategory(categoryId).then(category => {
+      var l = new Array<CategoryTreeItem>();
+      category.forEach(prop => {
+        var item: CategoryTreeItem = {
+          label: prop.name,
+          category: prop,
+          hasChildren: true,
+          children: null
+        };
+        l.push(item);
+      });
+      if (parent == null) {
+        // TreeViewのルートノードに設定する
+        this.nodes = l;
+      } else {
+        // サブカテゴリを設定する
+        parent.children = l;
+      }
+      return category;
+    });
+  }
 }
