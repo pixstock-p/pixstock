@@ -11,6 +11,13 @@
     iframe = document.getElementById("PAST_MAINBODY"); // stellaアプリケーションの、外部公開APIを呼び出す
     iframe.contentWindow.changeContentListByCategory(categoryId);
   }
+
+  const { ipcRenderer } = nodeRequire("electron");
+
+  function getIpc() {
+    return ipcRenderer;
+  }
+
 </script>
 }
 

@@ -12,7 +12,7 @@ import { ThumbnailDaoService } from './thumbnaildao.service';
     providers: [
         ContentDaoService,
         CategoryDaoService,
-        ThumbnailDaoService
+        ThumbnailDaoService,
     ]
 })
 export class DaoModule {}

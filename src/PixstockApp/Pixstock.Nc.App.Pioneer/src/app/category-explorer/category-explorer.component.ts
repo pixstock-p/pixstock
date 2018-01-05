@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Logger } from "angular2-logger/core";
 import { CategoryTreeItem } from './categoryTreeItem';
 import { ITreeOptions, TreeNode } from 'angular-tree-component';
 import { CategoryDaoService } from 'pixstock.nc.app.core/dest/src/dao/categorydao.service';
+import { PixstockNetService } from 'pixstock.nc.app.core/dest/src/dao/pixstocknet.service';
 import { Category } from 'pixstock.nc.app.core/dest/src/model/category';
 
 @Component({
@@ -10,7 +11,7 @@ import { Category } from 'pixstock.nc.app.core/dest/src/model/category';
   templateUrl: './category-explorer.component.html',
   styleUrls: ['./category-explorer.component.scss']
 })
-export class CategoryExplorerComponent implements OnInit {
+export class CategoryExplorerComponent implements OnInit,OnDestroy {
 
   nodes: any[] = [];
 
@@ -18,6 +19,8 @@ export class CategoryExplorerComponent implements OnInit {
     displayField: 'label',
     getChildren: this.getChildren.bind(this)
   };
+
+  private onSubmitSubscriber = null;
 
   /**
    * コンストラクタ
@@ -28,12 +31,20 @@ export class CategoryExplorerComponent implements OnInit {
   constructor(
     private _logger: Logger,
     private categoryDaoService: CategoryDaoService,
+    private _pixstock: PixstockNetService
   ) { }
 
   ngOnInit() {
-    this._logger.debug("カテゴリエクスプローラの初期化");
+    this._logger.debug("カテゴリエクスプローラの初期化222");
+
+    this.onSubmitSubscriber = this._pixstock.submit.subscribe(prop => this.addTodo2(prop));
+
     // ツリーの初期化
     this.getContents(null, 1); // カテゴリID=1はルートノード
+  }
+
+  ngOnDestroy() {
+    this.onSubmitSubscriber.unsubscribe();
   }
 
   onEvent_Activate(event: any) {
@@ -43,6 +54,12 @@ export class CategoryExplorerComponent implements OnInit {
     this._logger.info("[Pioneer][CategoryExplorerComponent][onEvent_Activate] : カテゴリツリーの選択(id=" + node.data.category.id);
     var pa:any = window.parent;
     pa.showContentListPanelByCategory(node.data.category.id);
+  }
+
+  addTodo2(todo: string) {
+    this._logger.info("[Pioneer][CategoryExplorerComponent][addTodo] : イベントから取得したメッセージ=" + todo);
+
+    this.onSubmitSubscriber.unsubscribe();
   }
 
   /**

@@ -7,6 +7,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 import { MyDateLibModule } from 'pixstock.nc.app.core/dest/src';
 import { DaoModule } from 'pixstock.nc.app.core/dest/src';
+import { PixstockNetService } from 'pixstock.nc.app.core/dest/src/dao/pixstocknet.service';
 
 import { AppComponent } from './app.component';
 
@@ -39,13 +40,19 @@ export class AppModule {
   constructor(
     private _logger: Logger,
     private router: Router,
-    private _ngZone: NgZone) {
-    _logger.info("Stellaアプリケーション初期化");
+    private _ngZone: NgZone,
+    private _pixstock: PixstockNetService
+  ) {
+    var parent: any = window.parent;
+
+    _logger.info("Stellaアプリケーション初期化 v1");
     window['angularComponentRef'] = {
       component: this,
       componentFn_changeContentListByCategory: (value) => this.changeContentListByCategory(value),
       zone: _ngZone
     };
+
+    _pixstock.initialize(parent.getIpc()); // IPCオブジェクト取得
   }
 
   /**
