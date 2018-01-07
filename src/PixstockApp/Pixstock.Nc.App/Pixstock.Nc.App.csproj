@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Appccelerate.StateMachine" Version="4.4.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.6.362" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="ElectronNET.API" Version="0.0.7" />
     <PackageReference Include="RestSharp" Version="106.1.0" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.0.12" />
   </ItemGroup>
 
   <ItemGroup>

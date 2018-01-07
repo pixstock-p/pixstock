@@ -2,7 +2,7 @@
   <div *ngFor="let listitem of contents" class="card">
     <img 
       *ngIf="listitem.thumbnail != null"
-      class="card-img-top" src="{{listitem.thumbnail.thumbnailSourceUri}}"
+      class="card-img-top" src="{{listitem.thumbnail.ThumbnailSourceUri}}"
       alt="Card image cap">
     <img 
       *ngIf="listitem.thumbnail == null"
@@ -10,7 +10,7 @@
       alt="Card image cap">
 
     <div class="card-body">
-      <h5 class="card-title">{{listitem.content.name}}</h5>
+      <h5 class="card-title">{{listitem.content.Name}}</h5>
     </div>
   </div>
 </div>

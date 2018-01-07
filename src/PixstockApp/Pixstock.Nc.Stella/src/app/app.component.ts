@@ -37,18 +37,4 @@ export class AppComponent {
     this._logger.log('This is a priority level 5 log message...');
   }
 
-
-  /**
-   * Electronに対してリクエスト送信テスト
-   */
-  getHeroes(): Promise<string> {
-    return this.http.get("/cli/Sample01/RequestCategory2",
-      {
-        params: {
-          CategoryId: '1'
-        }
-      })
-      .toPromise()
-      .then(response => response.json())
-  }
 }

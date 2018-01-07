@@ -1,7 +1,7 @@
 import { Content } from './../model/content';
 
 export interface Category {
-    id: number;
-    name: string;
-    contents: Content[];
+    Id: number;
+    Name: string;
+    Contents: Content[];
 }

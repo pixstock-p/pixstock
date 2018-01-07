@@ -1,9 +1,9 @@
 export interface Content {
-    id: number;
-    name: string;
-    identifyKey: string;
-    contentHash: string;
-    thumbnailKey: string;
-    caption: string;
-    comment: string;
+    Id: number;
+    Name: string;
+    IdentifyKey: string;
+    ContentHash: string;
+    ThumbnailKey: string;
+    Caption: string;
+    Comment: string;
 }

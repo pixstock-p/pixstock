@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, Params, NavigationStart, ActivationEnd } from '
 import { Content } from 'pixstock.nc.app.core/dest/src/model/content';
 import { CategoryDaoService } from 'pixstock.nc.app.core/dest/src/dao/categorydao.service';
 import { ThumbnailDaoService } from 'pixstock.nc.app.core/dest/src/dao/thumbnaildao.service';
+import { Observable } from 'rxjs/Observable';
 
 import { ListItem } from './listitem';
 import { Subscription } from 'rxjs/Subscription';
@@ -82,15 +83,15 @@ export class ContentListComponent implements OnInit, OnDestroy {
 
   private getContents(categoryId: Number): void {
     this._logger.debug("カテゴリ情報の読み込み=" + categoryId);
-    this.categoryDaoService.getCategory(categoryId).then(category => {
-      this._logger.debug("コンテンツ数=" + category.contents.length);
+    this.categoryDaoService.getCategory(categoryId).subscribe(category => {
+      this._logger.debug("コンテンツ数=" + category.Contents.length);
 
       var l = new Array<ListItem>();
-      category.contents.forEach(element => {
+      category.Contents.forEach(element => {
         var item = new ListItem();
         item.content = element;
-        if (item.content.thumbnailKey != null) {
-          this.getThumbnail(item, item.content.thumbnailKey);
+        if (item.content.ThumbnailKey != null) {
+          this.getThumbnail(item, item.content.ThumbnailKey);
         }
         l.push(item);
       });
@@ -100,7 +101,8 @@ export class ContentListComponent implements OnInit, OnDestroy {
   }
 
   private getThumbnail(item: ListItem, thumbnailHash: string): void {
-    this.thumbnailDaoService.getThumbnail(thumbnailHash).then(thumbanil => {
+    this._logger.debug("[Stella][ContentListComponent][getThumbnail] : サムネイル取得");
+    this.thumbnailDaoService.getThumbnail(thumbnailHash).subscribe(thumbanil => {
       item.thumbnail = thumbanil;
     });
   }

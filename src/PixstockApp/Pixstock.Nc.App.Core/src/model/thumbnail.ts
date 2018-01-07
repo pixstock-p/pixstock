@@ -1,3 +1,3 @@
 export interface Thumbnail {
-    thumbnailSourceUri: string;
+    ThumbnailSourceUri: string;
 }

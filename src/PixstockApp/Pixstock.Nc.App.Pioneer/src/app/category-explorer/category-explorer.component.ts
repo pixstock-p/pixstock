@@ -5,13 +5,14 @@ import { ITreeOptions, TreeNode } from 'angular-tree-component';
 import { CategoryDaoService } from 'pixstock.nc.app.core/dest/src/dao/categorydao.service';
 import { PixstockNetService } from 'pixstock.nc.app.core/dest/src/dao/pixstocknet.service';
 import { Category } from 'pixstock.nc.app.core/dest/src/model/category';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-category-explorer',
   templateUrl: './category-explorer.component.html',
   styleUrls: ['./category-explorer.component.scss']
 })
-export class CategoryExplorerComponent implements OnInit,OnDestroy {
+export class CategoryExplorerComponent implements OnInit, OnDestroy {
 
   nodes: any[] = [];
 
@@ -48,12 +49,12 @@ export class CategoryExplorerComponent implements OnInit,OnDestroy {
   }
 
   onEvent_Activate(event: any) {
-    var node:TreeNode = event.node;
+    var node: TreeNode = event.node;
 
     // メインアプリケーションの外部公開APIを呼び出す
-    this._logger.info("[Pioneer][CategoryExplorerComponent][onEvent_Activate] : カテゴリツリーの選択(id=" + node.data.category.id);
-    var pa:any = window.parent;
-    pa.showContentListPanelByCategory(node.data.category.id);
+    this._logger.info("[Pioneer][CategoryExplorerComponent][onEvent_Activate] : カテゴリツリーの選択(id=" + node.data.category.Id);
+    var pa: any = window.parent;
+    pa.showContentListPanelByCategory(node.data.category.Id);
   }
 
   addTodo2(todo: string) {
@@ -63,14 +64,15 @@ export class CategoryExplorerComponent implements OnInit,OnDestroy {
   }
 
   /**
+   * TreeViewコンポーネントがPromise型インターフェースを戻り値とするため、Promise型で返す。
    * 
    * @param node 
+   * @returns 子階層
    */
   getChildren(node: TreeNode) {
     return new Promise((resolve, reject) => {
-      this.getContents(node.data, node.data.category.id).then(categories => {
-        resolve(node.data.children);
-      });
+      this.getContents(node.data, node.data.category.Id)
+      resolve(node.data.children);
     });
   }
 
@@ -80,12 +82,13 @@ export class CategoryExplorerComponent implements OnInit,OnDestroy {
    * @param parent 親階層のノード。
    * @param categoryId 
    */
-  private getContents(parent: CategoryTreeItem, categoryId: Number): Promise<Category[]> {
-    return this.categoryDaoService.getSubCategory(categoryId).then(category => {
+  private getContents(parent: CategoryTreeItem, categoryId: Number): Category[] {
+    let result: Category[] = [];
+    this.categoryDaoService.getSubCategory(categoryId).subscribe((category) => {
       var l = new Array<CategoryTreeItem>();
       category.forEach(prop => {
         var item: CategoryTreeItem = {
-          label: prop.name,
+          label: prop.Name,
           category: prop,
           hasChildren: true,
           children: null
@@ -99,7 +102,9 @@ export class CategoryExplorerComponent implements OnInit,OnDestroy {
         // サブカテゴリを設定する
         parent.children = l;
       }
-      return category;
+
+      result = category;
     });
+    return result;
   }
 }

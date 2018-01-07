@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+
 import { Thumbnail } from './../model/thumbnail';
+import { PixstockNetService } from './pixstocknet.service';
 
 @Injectable()
 export class ThumbnailDaoService {
-    private controllerUrl = "/cli/Sample01";
+    constructor(private _pixstock: PixstockNetService) { }
 
-    constructor(private http: Http) { }
+    getThumbnail(thumbnailHash : string) : Observable<Thumbnail> {
+        console.debug("[ThumbnailDaoService] getThumbnail(v2) = " + this._pixstock);
 
-    getThumbnail(thumbnailHash : string) : Promise<Thumbnail> {
-        return this.http.get(this.controllerUrl + "/ThumbnailList",
-            {
-                params: {
-                    ThumbnailHash: thumbnailHash
-                }
-            })
-            .toPromise()
-            .then(response => response.json() as Thumbnail)
+        return Observable.create(observer => {
+            let result = this._pixstock.ipcRenderer.sendSync("EAV_GETTHUMBNAIL", thumbnailHash);
+            observer.next(JSON.parse(result) as Thumbnail);
+        });
     }
 }

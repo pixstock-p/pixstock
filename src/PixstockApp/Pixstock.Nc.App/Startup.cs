@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pixstock.Nc.App.Controllers.Workflow;
 
 namespace Pixstock.Nc.App
 {
@@ -50,7 +51,12 @@ namespace Pixstock.Nc.App
             var option = new BrowserWindowOptions();
             option.Width = 1400;
 
+            this.emiter = new ContentMainWorkflowEventEmiter();
+            this.emiter.Initialize();
+
             Task.Run(async () => await ElectronNET.API.Electron.WindowManager.CreateWindowAsync(option));
         }
+
+        private ContentMainWorkflowEventEmiter emiter;
     }
 }
