@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Logger } from "angular2-logger/core";
-import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { PixstockNetService } from 'pixstock.nc.app.core/dest/src/dao/pixstocknet.service';
 import { ContentDaoService } from 'pixstock.nc.app.core/dest/src/dao/contentdao.service';
@@ -16,16 +16,23 @@ export class AppComponent {
 
   constructor(
     private _logger: Logger,
-    private http: Http,
+    private router: Router,
     //private contentDaoService: ContentDaoService,
     private categoryDaoService: CategoryDaoService,
     private _pixstock: PixstockNetService
   ) {
-    _pixstock.submit.subscribe(prop => this.addTodo(prop));
+    _pixstock.echo.subscribe(prop => this.addTodo(prop));
+    _pixstock.ShowContentPreview.subscribe(prop => this.OnShowContentPreview(prop));
   }
 
   addTodo(todo: string) {
     this._logger.info("[Stella][AppComponent][addTodo] : イベントから取得したメッセージ=" + todo);
+  }
+
+  OnShowContentPreview(args: string) {
+    this._logger.info("[Stella][AppComponent][OnShowContentPreview] : イベントから取得したメッセージ=" + args);
+
+    this.router.navigate(['/dashboard'], { queryParams: { id: args } });
   }
 
   create() {

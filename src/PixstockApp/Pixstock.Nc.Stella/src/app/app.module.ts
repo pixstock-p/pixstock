@@ -13,12 +13,14 @@ import { AppComponent } from './app.component';
 
 import { routing } from './app.routing';
 import { ContentListComponent } from './content-list/content-list.component';
+import { ContentPreviewComponent } from './content-preview/content-preview.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContentListComponent,
+    ContentPreviewComponent,
     DashboardComponent
   ],
   imports: [

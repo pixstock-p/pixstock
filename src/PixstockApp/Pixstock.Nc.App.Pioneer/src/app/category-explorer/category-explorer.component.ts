@@ -21,7 +21,7 @@ export class CategoryExplorerComponent implements OnInit, OnDestroy {
     getChildren: this.getChildren.bind(this)
   };
 
-  private onSubmitSubscriber = null;
+  private onEchoSubscriber = null;
 
   /**
    * コンストラクタ
@@ -38,14 +38,14 @@ export class CategoryExplorerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._logger.debug("カテゴリエクスプローラの初期化222");
 
-    this.onSubmitSubscriber = this._pixstock.submit.subscribe(prop => this.addTodo2(prop));
+    this.onEchoSubscriber = this._pixstock.echo.subscribe(prop => this.onEcho(prop));
 
     // ツリーの初期化
     this.getContents(null, 1); // カテゴリID=1はルートノード
   }
 
   ngOnDestroy() {
-    this.onSubmitSubscriber.unsubscribe();
+    this.onEchoSubscriber.unsubscribe();
   }
 
   onEvent_Activate(event: any) {
@@ -57,10 +57,10 @@ export class CategoryExplorerComponent implements OnInit, OnDestroy {
     pa.showContentListPanelByCategory(node.data.category.Id);
   }
 
-  addTodo2(todo: string) {
+  onEcho(todo: string) {
     this._logger.info("[Pioneer][CategoryExplorerComponent][addTodo] : イベントから取得したメッセージ=" + todo);
 
-    this.onSubmitSubscriber.unsubscribe();
+    this.onEchoSubscriber.unsubscribe();
   }
 
   /**

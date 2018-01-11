@@ -81,6 +81,18 @@ export class ContentListComponent implements OnInit, OnDestroy {
     this._logger.debug("[updateContentListAtRouting] OUT");
   }
 
+  /**
+   * リストアイテムのコンテントをコンテントプレビュー画面で表示します
+   * 
+   * @param item 対象項目
+   */
+  showContentPreview(item:ListItem) {
+    this._logger.debug("コンポーネントクラスでイベント受取 = " + item);
+    
+    // コンテントプレビュー画面に表示切り替え
+    this.router.navigate(['/preview'], { queryParams: { id: item.content.Id } });
+  }
+
   private getContents(categoryId: Number): void {
     this._logger.debug("カテゴリ情報の読み込み=" + categoryId);
     this.categoryDaoService.getCategory(categoryId).subscribe(category => {

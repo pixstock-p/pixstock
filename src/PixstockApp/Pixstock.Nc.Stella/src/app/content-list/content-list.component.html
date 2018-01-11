@@ -1,5 +1,5 @@
 <div class="card-deck">
-  <div *ngFor="let listitem of contents" class="card">
+  <div *ngFor="let listitem of contents" class="card" (dblclick)="showContentPreview(listitem)">
     <img 
       *ngIf="listitem.thumbnail != null"
       class="card-img-top" src="{{listitem.thumbnail.ThumbnailSourceUri}}"

@@ -12,10 +12,10 @@ export class AppComponent {
   constructor(
     private _pixstock: PixstockNetService
   ) {
-    _pixstock.submit.subscribe(prop => this.addTodo(prop));
+    _pixstock.echo.subscribe(prop => this.onEcho(prop));
   }
 
-  addTodo(todo: string) {
+  onEcho(todo: string) {
     console.info("イベントから取得したメッセージ=" + todo);
   }
 }
