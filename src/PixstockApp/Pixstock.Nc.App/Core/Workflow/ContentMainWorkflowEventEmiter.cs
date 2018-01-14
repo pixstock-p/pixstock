@@ -39,11 +39,21 @@ namespace Pixstock.Nc.App.Controllers.Workflow
                 var thumbnail = thumbnailDao.LoadByThumbnailKey(thumbnailHash);
                 return JsonConvert.SerializeObject(thumbnail);
             });
+
+            Electron.IpcMain.OnSync("EAV_GET_CONTENTPREVIEW", (args) => {
+                long contentId = long.Parse(args.ToString());
+                ContentDao contentDao = new ContentDao();
+                var content = contentDao.LoadContentData(contentId);
+                return content;
+            });
         }
 
         public void Dispose()
         {
             Electron.IpcMain.RemoveAllListeners("EAV_GETCATEGORY");
+            Electron.IpcMain.RemoveAllListeners("EAV_GETSUBCATEGORY");
+            Electron.IpcMain.RemoveAllListeners("EAV_GETTHUMBNAIL");
+            Electron.IpcMain.RemoveAllListeners("EAV_GET_CONTENTPREVIEW");
         }
     }
 }

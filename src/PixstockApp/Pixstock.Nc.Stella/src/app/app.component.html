@@ -1,11 +1,2 @@
-
-<nav>
-  <a routerLink="/dashboard">Dashboard</a> /
-  <a [routerLink]="['/contents']" [queryParams]="{ id: 1 }" clearHistory="true" >contents</a> / 
-  <a [routerLink]="['/contents']" [queryParams]="{ id: 2 }" clearHistory="true" >contents2</a> /
-  <a [routerLink]="['/contents']" [queryParams]="{ id: 3 }" >contents3</a> /
-</nav>
-
 <router-outlet></router-outlet>
 
-<button role="button" class="btn btn-primary" (click)="create()">Create</button>

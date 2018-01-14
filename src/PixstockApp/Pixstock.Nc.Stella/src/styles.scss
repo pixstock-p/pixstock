@@ -80,3 +80,33 @@ body
     /* Needed for when the area gets squished too far and there is content that can't be displayed */
     overflow: auto; 
 }
+
+
+app-root {
+    height: 100%;
+}
+
+app-content-preview {
+    height: 100%;
+
+    /* カルーセルの画像をブラウザにFITさせる。 */
+    carousel {
+        height: 100%;
+        .slide {
+            height: 100%;
+            .carousel-inner {
+                height: 100%;
+                slide {
+                    height: 100%;
+                    .item {
+                        height: 100%;
+                        img {
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

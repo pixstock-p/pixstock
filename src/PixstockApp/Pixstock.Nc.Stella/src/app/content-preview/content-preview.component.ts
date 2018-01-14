@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Logger } from "angular2-logger/core";
 import { ActivatedRoute, Router, Params, NavigationStart, ActivationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { ContentDaoService } from 'pixstock.nc.app.core/dest/src/dao/contentdao.service';
 
 @Component({
     selector: 'app-content-preview',
@@ -14,10 +15,17 @@ export class ContentPreviewComponent implements OnInit, OnDestroy {
      */
     routeEvent: Subscription;
 
+    /**
+     * [VM] プレビューデータを取得するURL
+     */
+    previewUrl: string;
+
     constructor(
         private _logger: Logger,
         private router: Router,
-        private route: ActivatedRoute, ) { }
+        private route: ActivatedRoute,
+        private _contentDao: ContentDaoService
+     ) { }
 
     ngOnInit() {
         this._logger.debug("[Stella][ContentPreviewComponent][ngOnInit] コンポーネント初期化");
@@ -53,7 +61,8 @@ export class ContentPreviewComponent implements OnInit, OnDestroy {
         if (contentId == 0)
             throw new Error("idパラメータが未設定です");
 
-        // TODO
-        
+        this._contentDao.getContentPreview(contentId).subscribe(prop => {
+            this.previewUrl = prop;
+        });
     }
 }

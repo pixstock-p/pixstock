@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Logger, Options as LoggerOptions, Level as LoggerLevel } from "angular2-logger/core";
 import { AlertModule } from 'ngx-bootstrap';
 import { ButtonsModule } from 'ngx-bootstrap';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { HttpModule } from '@angular/http';
 import { MyDateLibModule } from 'pixstock.nc.app.core/dest/src';
 import { DaoModule } from 'pixstock.nc.app.core/dest/src';
@@ -29,6 +30,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     routing,
     AlertModule.forRoot(),
     ButtonsModule.forRoot(),
+    CarouselModule.forRoot(),
     MyDateLibModule,
     DaoModule
   ],
