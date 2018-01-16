@@ -40,7 +40,6 @@
             "problemMatcher": []
         },
         {
-            // シェルスクリプトから直接コマンドを実行しても良い
             "label": "docker run srv",
             "type": "shell",
             "command": "docker run -ti -p 5080:80 -v /opt/pixstock:/opt/pixstock/pfs local/pixsrv",
@@ -59,13 +58,18 @@
             "problemMatcher": []
         },
         {
-            // シェルスクリプトから直接コマンドを実行しても良い
             "label": "docker run srvtest",
             "type": "shell",
             "command": "docker run -ti local/pixsrvtest",
             "presentation": {
                 "reveal": "always"
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "build:angular",
+            "type": "shell",
+            "command": "npm run all:angular --prefix ./buildtool",
             "problemMatcher": []
         }
     ]

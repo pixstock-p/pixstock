@@ -2,10 +2,10 @@
     "name": "pixstock.buildtool",
     "version": "1.0.0",
     "scripts": {
-        "build: angular_corelib": "gulp build_angular_lib",
-        "build: angular_app": "gulp build_angular_app",
-        "all: angular": "npm run build_angular_corelib && npm run build_angular_app",
-        "install: npm": "gulp npm_install"
+        "build:angular_corelib": "gulp build_angular_lib",
+        "build:angular_app": "gulp build_angular_app",
+        "all:angular": "npm-run-all build:angular_corelib build:angular_app",
+        "setup:pixstock": "gulp setup_pixstock"
     },
     "devDependencies": {
         "@angular/compiler": "^5.0.0",
@@ -16,6 +16,7 @@
         "gulp": "^3.9.1",
         "gulp-babel": "^7.0.0",
         "gulp-exec": "^3.0.1",
+        "npm-run-all": "^4.1.2",
         "typescript": "~2.4.2"
     }
 }
