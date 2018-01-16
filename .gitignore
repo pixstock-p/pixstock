@@ -31,6 +31,7 @@ $tf*/
 .nuget/
 packages/
 *.scgdat
+package-lock.json
 node_modules/
 **/wwwroot/stella/*
 **/wwwroot/pioneer/*
