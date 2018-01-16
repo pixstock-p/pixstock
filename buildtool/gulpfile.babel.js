@@ -19,11 +19,11 @@ gulp.task('build_angular_app', () => {
     return gulp.src('gulpfile.babel.js')
         .pipe(exec('npm install --prefix ./../src/PixstockApp/Pixstock.Nc.App.Pioneer', options))
         .pipe(exec.reporter(reportOptions))
-        .pipe(exec('npm install --prefix ./../src/PixstockApp/Pixstock.Nc.Stella', options))
+        .pipe(exec('npm install --prefix ./../src/PixstockApp/Pixstock.Nc.App.Stella', options))
         .pipe(exec.reporter(reportOptions))
         .pipe(exec('npm run ng build --prefix ./../src/PixstockApp/Pixstock.Nc.App.Pioneer', options))
         .pipe(exec.reporter(reportOptions))
-        .pipe(exec('npm run ng build --prefix ./../src/PixstockApp/Pixstock.Nc.Stella', options))
+        .pipe(exec('npm run ng build --prefix ./../src/PixstockApp/Pixstock.Nc.App.Stella', options))
         .pipe(exec.reporter(reportOptions))
         ;
 });
