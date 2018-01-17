@@ -1,8 +1,15 @@
 @media (min-width: 576px) {
     .card-deck {
+        margin: 3px;
+
         .card-body {
             padding: 0;
+
+            h5 {
+                font-size: 0.75rem;
+            }
         }
+
         .card {
             min-width: 100px;
             max-width: 100px;

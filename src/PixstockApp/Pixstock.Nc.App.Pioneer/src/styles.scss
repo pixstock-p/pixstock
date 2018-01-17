@@ -20,7 +20,15 @@ html, body
 body
 {
     font-size: 0.8em;
+    line-height: 1.2;
     /* Helvetica/Arial-based sans serif stack */
     font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+}
+
+tree-root {
+    tree-viewport {
+        height: auto;
+        overflow: unset;
+    }
 }
