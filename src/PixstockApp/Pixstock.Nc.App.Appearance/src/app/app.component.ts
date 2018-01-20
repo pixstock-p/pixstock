@@ -30,9 +30,10 @@ export class AppComponent {
     this._logger.info("[Stella][AppComponent][OnShowContentPreview] : イベントから取得したメッセージ=" + args);
   }
 
-  OnShowContentList(args: string) {
+  OnShowContentList(args: Number) {
     this._logger.info("[Stella][AppComponent][OnShowContentList] : イベントから取得したメッセージ=" + args);
 
+    this._screen.ContentListParameter.categoryId = args;
     this._screen.VisibilityContentList = true;
   }
 }

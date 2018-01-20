@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Logger } from "angular2-logger/core";
 import { ActivatedRoute, Router, Params, NavigationStart, ActivationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,18 +21,36 @@ export class ContentListComponent implements OnInit, OnDestroy {
    */
   contents: ListItem[];
 
-  parentUrl:string = "";
+  parentUrl: string = "";
 
-  private onShowContentListSubscription : Subscription;
-
-    /**
-   * コンストラクタ.
+  /**
+   * 読み込むコンテントの検索条件に使用するカテゴリを設定します.
    * 
-   * @param _logger 
-   * @param categoryDaoService 
-   * @param thumbnailDaoService 
-   * @param router 
-   * @param route 
+   * 変更通知を受けるため、Input属性のプロパティとして公開する。
+   * 
+   * @param value
+   */
+  @Input() set categoryId(value: Number) {
+    this._logger.debug("[ContentListComponent][set categoryId] - IN");
+    this._categoryId = value;
+    if (this._isInitialized) this.getContents(this._categoryId);
+    this._logger.debug("[ContentListComponent][set categoryId] - OUT");
+  }
+
+  /**
+   * 読み込むコンテントの検索条件に使用するカテゴリを取得します.
+   * 
+   * @returns
+   */
+  get categoryId(): Number {
+    return this._categoryId;
+  }
+
+  private _isInitialized: boolean = false;
+  private _categoryId: Number;
+
+  /**
+   * コンストラクタ.
    */
   constructor(
     private _logger: Logger,
@@ -49,24 +67,15 @@ export class ContentListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    // このコンポーネントでは、このイベントを受けないほうが良い。
-    this.onShowContentListSubscription = this._pixstock.ShowContentList.subscribe(prop => this.onShowContentList(prop));
-
     this.contents = new Array<ListItem>();
+
+    this.getContents(this.categoryId);
+
+    this._isInitialized = true;
   }
 
   ngOnDestroy() {
-    this.onShowContentListSubscription.unsubscribe();
-  }
-
-  onShowContentList(categoryId:Number) {
-    this._logger.debug("[ContentListComponent][onShowContentList] - IN");
-    this._logger.info("カテゴリ(" + categoryId + ")を表示します。");
-
-    this.contents = new Array<ListItem>();
-
-    let l_categoryId = categoryId;
-    this.getContents(l_categoryId);
+    this._isInitialized = false;
   }
 
   /**
@@ -74,9 +83,9 @@ export class ContentListComponent implements OnInit, OnDestroy {
    * 
    * @param item 対象項目
    */
-  showContentPreview(item:ListItem) {
+  showContentPreview(item: ListItem) {
     this._logger.debug("コンポーネントクラスでイベント受取 = " + item);
-    
+
     // コンテントプレビュー画面に表示切り替え
     //this.router.navigate(['/preview'], { queryParams: { id: item.content.Id } });
   }
@@ -84,14 +93,14 @@ export class ContentListComponent implements OnInit, OnDestroy {
   private getContents(categoryId: Number): void {
     this.categoryDaoService.getCategory(categoryId).subscribe(category => {
       var l = new Array<ListItem>();
-       category.Contents.forEach(element => {
-         var item = new ListItem();
-         item.content = element;
-         if (item.content.ThumbnailKey != null) {
-           //this.getThumbnail(item, item.content.ThumbnailKey);
-         }
-         l.push(item);
-       });
+      category.Contents.forEach(element => {
+        var item = new ListItem();
+        item.content = element;
+        if (item.content.ThumbnailKey != null) {
+          this.getThumbnail(item, item.content.ThumbnailKey);
+        }
+        l.push(item);
+      });
 
       this.contents = l;
     });

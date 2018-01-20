@@ -6,6 +6,7 @@ import { ITreeOptions, TreeNode } from 'angular-tree-component';
 import { CategoryDaoService } from './../shared/dao/category-dao.service';
 import { Category } from '../shared/model/category';
 import { PixstockNetService } from '../shared/service/pixstock-net.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-category-explorer',
@@ -21,7 +22,7 @@ export class CategoryExplorerComponent implements OnInit, OnDestroy {
     getChildren: this.getChildren.bind(this)
   };
 
-  private onEchoSubscriber = null;
+  private onEchoSubscriber:Subscription = null;
 
   constructor(
     private _logger: Logger,
@@ -44,7 +45,7 @@ export class CategoryExplorerComponent implements OnInit, OnDestroy {
   }
 
   onEcho(todo: string) {
-    this._logger.info("[Pioneer][CategoryExplorerComponent][addTodo] : イベントから取得したメッセージ=" + todo);
+    this._logger.info("[CategoryExplorerComponent][addTodo] : イベントから取得したメッセージ=" + todo);
 
     this.onEchoSubscriber.unsubscribe();
   }
@@ -58,7 +59,7 @@ export class CategoryExplorerComponent implements OnInit, OnDestroy {
     var node: TreeNode = event.node;
 
     // メインアプリケーションの外部公開APIを呼び出す
-    this._logger.info("[Pioneer][CategoryExplorerComponent][onEvent_Activate] : カテゴリツリーの選択(id=" + node.data.category.Id + ")");
+    this._logger.info("[CategoryExplorerComponent][onEvent_Activate] : カテゴリツリーの選択(id=" + node.data.category.Id + ")");
     this._pixstock.ShowScreenContentList(node.data.category.Id);
   }
 

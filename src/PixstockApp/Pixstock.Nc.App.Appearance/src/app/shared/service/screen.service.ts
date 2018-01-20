@@ -5,11 +5,13 @@ export class ScreenService {
 
   VisibilityContentList:boolean = false;
 
-  ContentListParameter:ContentListParameter = new ContentListParameter();
+  ContentListParameter:ContentListParameter = {
+    categoryId: 0
+  };
 
   constructor() { }
 }
 
-export class ContentListParameter {
+export interface ContentListParameter {
   categoryId: Number;
 }

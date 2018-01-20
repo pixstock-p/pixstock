@@ -14,7 +14,7 @@
         <div class="alert alert-primary" role="alert">
           This is a primary alert—check it out! {{_screen.VisibilityContentList}}
         </div>
-        <app-content-list *ngIf="_screen.VisibilityContentList"></app-content-list>
+        <app-content-list *ngIf="_screen.VisibilityContentList" [categoryId]="_screen.ContentListParameter.categoryId"></app-content-list>
       </div>
     </div>
     <div class="w-25 flexbox-item fill-area content flexbox-item-grow" style="flex-grow: 0.3">
