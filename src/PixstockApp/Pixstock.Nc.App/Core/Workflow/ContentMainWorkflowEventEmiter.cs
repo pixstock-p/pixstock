@@ -1,5 +1,8 @@
 
 using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using ElectronNET.API;
 using Newtonsoft.Json;
 using Pixstock.Nc.App.Core.Dao;
@@ -15,6 +18,18 @@ namespace Pixstock.Nc.App.Controllers.Workflow
             Electron.IpcMain.On("async-msg", (args) =>
             {
                 Console.WriteLine("async-msg = " + args.GetType());
+            });
+
+            Electron.IpcMain.OnSync("EVT_TRNS_CONTENTLIST", (args) =>
+            {
+                Console.WriteLine("[ContentMainWorkflowEventEmiter][Initialize] : IN");
+                // TODO: ワークフロー制御
+
+                var mainWindow = Electron.WindowManager.BrowserWindows.First();
+                Electron.IpcMain.Send(mainWindow,"MSG_SHOW_CONTENLIST",args);
+
+                Console.WriteLine("[ContentMainWorkflowEventEmiter][Initialize] : メッセージ送信");
+                return 0;
             });
 
             Electron.IpcMain.OnSync("EAV_GETCATEGORY", (args) =>
@@ -50,6 +65,7 @@ namespace Pixstock.Nc.App.Controllers.Workflow
 
         public void Dispose()
         {
+            Electron.IpcMain.RemoveAllListeners("EVT_TRNS_CONTENTLIST");
             Electron.IpcMain.RemoveAllListeners("EAV_GETCATEGORY");
             Electron.IpcMain.RemoveAllListeners("EAV_GETSUBCATEGORY");
             Electron.IpcMain.RemoveAllListeners("EAV_GETTHUMBNAIL");

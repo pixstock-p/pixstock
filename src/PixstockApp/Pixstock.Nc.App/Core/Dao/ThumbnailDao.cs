@@ -6,7 +6,7 @@ namespace Pixstock.Nc.App.Core.Dao
     {
         public Thumbnail LoadByThumbnailKey(string thumbnailKey)
         {
-            return new Thumbnail { ThumbnailSourceUri = "/cli/Sample01/ThumbnailImageFile/" + thumbnailKey };
+            return new Thumbnail { ThumbnailSourceUri = "cli/Sample01/ThumbnailImageFile/" + thumbnailKey };
         }
     }
 }

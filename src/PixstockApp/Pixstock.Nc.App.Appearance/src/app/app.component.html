@@ -1,0 +1,30 @@
+<div class="flexbox-parent">
+  <div class="flexbox-item header">
+    Header_1
+  </div>
+
+  <div class="d-flex justify-content-between flexbox-item fill-area content flexbox-item-grow">
+    <div class="flexbox-item fill-area content flexbox-item-grow" style="flex-grow: 0.3;">
+      <div class="fill-area-content flexbox-item-grow" style="overflow: hidden">
+        <app-category-explorer></app-category-explorer>
+      </div>
+    </div>
+    <div class="w-50 flexbox-item fill-area content flexbox-item-grow" style="overflow: hidden">
+      <div class="fill-area-content flexbox-item-grow" style="overflow-y:auto">
+        <div class="alert alert-primary" role="alert">
+          This is a primary alert—check it out! {{_screen.VisibilityContentList}}
+        </div>
+        <app-content-list *ngIf="_screen.VisibilityContentList"></app-content-list>
+      </div>
+    </div>
+    <div class="w-25 flexbox-item fill-area content flexbox-item-grow" style="flex-grow: 0.3">
+      <div class="fill-area-content flexbox-item-grow" style="overflow: hidden">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="flexbox-item footer">
+    Footer
+  </div>
+</div>

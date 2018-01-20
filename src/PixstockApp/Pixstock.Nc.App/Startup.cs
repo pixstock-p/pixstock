@@ -50,11 +50,16 @@ namespace Pixstock.Nc.App
 
             var option = new BrowserWindowOptions();
             option.Width = 1400;
+            option.WebPreferences = new WebPreferences { 
+                WebSecurity = false
+            };
 
             this.emiter = new ContentMainWorkflowEventEmiter();
-            this.emiter.Initialize();
-
-            Task.Run(async () => await ElectronNET.API.Electron.WindowManager.CreateWindowAsync(option));
+            Task.Run(async () => {
+                var browser = await ElectronNET.API.Electron.WindowManager.CreateWindowAsync(option);
+                this.emiter.Initialize();
+            }
+            );
         }
 
         private ContentMainWorkflowEventEmiter emiter;
