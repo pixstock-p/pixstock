@@ -26,14 +26,20 @@ export class AppComponent {
     console.info("イベントから取得したメッセージ=" + todo);
   }
 
-  OnShowContentPreview(args: string) {
+  OnShowContentPreview(args: Number) {
     this._logger.info("[Stella][AppComponent][OnShowContentPreview] : イベントから取得したメッセージ=" + args);
+    this._screen.ContentPreviewParameter.contentId = args;
+
+    this._screen.VisibilityContentList = false;
+    this._screen.VisibilityContentPreview = true;
   }
 
   OnShowContentList(args: Number) {
     this._logger.info("[Stella][AppComponent][OnShowContentList] : イベントから取得したメッセージ=" + args);
 
     this._screen.ContentListParameter.categoryId = args;
+
+    this._screen.VisibilityContentPreview = false;
     this._screen.VisibilityContentList = true;
   }
 }

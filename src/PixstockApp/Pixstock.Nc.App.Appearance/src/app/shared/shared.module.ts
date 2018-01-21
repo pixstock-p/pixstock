@@ -5,6 +5,7 @@ import { PixstockNetService } from './service/pixstock-net.service';
 import { ScreenService } from './service/screen.service';
 import { CategoryDaoService } from './dao/category-dao.service';
 import { ThumbnailDaoService } from './dao/thumbnail-dao.service';
+import { ContentDaoService } from './dao/content-dao.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ThumbnailDaoService } from './dao/thumbnail-dao.service';
   providers: [
     PixstockNetService,
     CategoryDaoService,
+    ContentDaoService,
     ThumbnailDaoService,
     ScreenService
   ]

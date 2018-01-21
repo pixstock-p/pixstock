@@ -84,10 +84,11 @@ export class ContentListComponent implements OnInit, OnDestroy {
    * @param item 対象項目
    */
   showContentPreview(item: ListItem) {
-    this._logger.debug("コンポーネントクラスでイベント受取 = " + item);
+    this._logger.debug("[ContentListComponent][showContentPreview] - IN コンポーネントクラスでイベント受取 = " + item);
 
     // コンテントプレビュー画面に表示切り替え
     //this.router.navigate(['/preview'], { queryParams: { id: item.content.Id } });
+    this._pixstock.ShowScreenContentPreview(item.content.Id);
   }
 
   private getContents(categoryId: Number): void {

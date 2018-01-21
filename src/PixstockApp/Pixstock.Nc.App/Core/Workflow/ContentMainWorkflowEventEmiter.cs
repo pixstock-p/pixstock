@@ -32,6 +32,18 @@ namespace Pixstock.Nc.App.Controllers.Workflow
                 return 0;
             });
 
+            Electron.IpcMain.OnSync("EVT_TRNS_CONTENTPREVIEW", (args) =>
+            {
+                Console.WriteLine("[ContentMainWorkflowEventEmiter][EVT_TRNS_CONTENTPREVIEW] : IN");
+                // TODO: ワークフロー制御
+
+                var mainWindow = Electron.WindowManager.BrowserWindows.First();
+                Electron.IpcMain.Send(mainWindow,"MSG_SHOW_CONTENTPREVIEW",args);
+
+                Console.WriteLine("[ContentMainWorkflowEventEmiter][EVT_TRNS_CONTENTPREVIEW] : メッセージ送信");
+                return 0;
+            });
+
             Electron.IpcMain.OnSync("EAV_GETCATEGORY", (args) =>
             {
                 long categoryId = long.Parse(args.ToString());
@@ -65,6 +77,7 @@ namespace Pixstock.Nc.App.Controllers.Workflow
 
         public void Dispose()
         {
+            Electron.IpcMain.RemoveAllListeners("EVT_TRNS_CONTENTPREVIEW");
             Electron.IpcMain.RemoveAllListeners("EVT_TRNS_CONTENTLIST");
             Electron.IpcMain.RemoveAllListeners("EAV_GETCATEGORY");
             Electron.IpcMain.RemoveAllListeners("EAV_GETSUBCATEGORY");

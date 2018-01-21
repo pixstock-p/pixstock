@@ -3,10 +3,19 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ScreenService {
 
-  VisibilityContentList:boolean = false;
+  VisibilityContentList: boolean = false;
 
-  ContentListParameter:ContentListParameter = {
+  /**
+   * コンテントプレビュー画面の表示フラグ
+   */
+  VisibilityContentPreview: boolean = false;
+
+  ContentListParameter: ContentListParameter = {
     categoryId: 0
+  };
+
+  ContentPreviewParameter: ContentPreviewParameter = {
+    contentId: 0
   };
 
   constructor() { }
@@ -14,4 +23,8 @@ export class ScreenService {
 
 export interface ContentListParameter {
   categoryId: Number;
+}
+
+export interface ContentPreviewParameter {
+  contentId: Number;
 }

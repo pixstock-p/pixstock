@@ -18,11 +18,12 @@ export class PixstockNetService {
   ShowContentList: EventEmitter<string> = new EventEmitter();
 
   private onMSG_SHOW_CONTENTPREVIEW(event, args) {
+    this._logger.debug("[PixstockNetService][onMSG_SHOW_CONTENTPREVIEW] : Execute");
     this.ShowContentPreview.emit(args);
   }
 
   private onMSG_SHOW_CONTENLIST(event, args) {
-    this._logger.debug("Execute onMSG_SHOW_CONTENLIST");
+    this._logger.debug("[PixstockNetService][onMSG_SHOW_CONTENLIST] : Execute");
     this.ShowContentList.emit(args);
   }
 
@@ -43,7 +44,7 @@ export class PixstockNetService {
         componentFn_MSG_SHOW_CONTENLIST: (event, arg) => this.onMSG_SHOW_CONTENLIST(event, arg)
       };
     }
-    
+
     if (isRpcInitialize) {
       _logger.info("IPCイベントの初期化");
 
@@ -75,4 +76,13 @@ export class PixstockNetService {
     this.ipcRenderer.send("EVT_TRNS_CONTENTLIST", categoryId);
   }
 
+  /**
+   * コンテントプレビュー画面切替要求
+   * 
+   * @param contentId 
+   */
+  ShowScreenContentPreview(contentId: Number): void {
+    this._logger.info("Execute EVT_TRNS_CONTENTPREVIEWイベント送信");
+    this.ipcRenderer.send("EVT_TRNS_CONTENTPREVIEW", contentId);
+  }
 }

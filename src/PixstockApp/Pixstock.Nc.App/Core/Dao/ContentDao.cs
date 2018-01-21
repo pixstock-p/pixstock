@@ -6,7 +6,7 @@ namespace Pixstock.Nc.App.Core.Dao {
         /// </summary>
         /// <param name="contentId"></param>
         public string LoadContentData(long contentId) {
-            return "/cli/Sample01/ContentImageFile/" + contentId;
+            return "cli/Sample01/ContentImageFile/" + contentId;
         }
     }
 }
