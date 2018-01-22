@@ -41,7 +41,7 @@ export class ContentPreviewComponent implements OnInit, OnDestroy {
   constructor(
     private _logger: Logger,
     private _contentDao: ContentDaoService
-  ) { 
+  ) {
     // iframeの親ウィンドウが、ASP.NETのHostingのため、
     // そのURLを取得する。
     var parent: any = window.parent; // JSのWindowオブジェクト
@@ -60,7 +60,7 @@ export class ContentPreviewComponent implements OnInit, OnDestroy {
 
   private updateContentPreviewAtRouting() {
     this._contentDao.getContentPreview(this.contentId).subscribe(prop => {
-      this.previewUrl = this._parentUrl + prop;
+      this.previewUrl = this._parentUrl + prop.PreviewUrl;
     });
   }
 }

@@ -67,6 +67,12 @@
             "problemMatcher": []
         },
         {
+            "label": "run:webpack",
+            "type": "shell",
+            "command": "npm run run:webpack --prefix ./buildtool",
+            "problemMatcher": []
+        },
+        {
             "label": "build:angular",
             "type": "shell",
             "command": "npm run all:angular --prefix ./buildtool",

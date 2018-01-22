@@ -18,14 +18,26 @@ export class ContentDaoService {
    * @param contentId 
    * @returns
    */
-  getContentPreview(contentId): Observable<string> {
+  getContentPreview(contentId): Observable<ResponseGetContentPreview> {
     console.info("[ContentDaoService][getContentPreview] IN");
 
     // 現時点では、情報といってもただのURL文字列を取得する
 
     return Observable.create(observer => {
       let result = this._pixstock.ipcRenderer.sendSync(WorkflowApi.EAV_GET_CONTENTPREVIEW, contentId);
-      observer.next(result);
+      observer.next(JSON.parse(result) as ResponseGetContentPreview);
     });
   }
+}
+
+/**
+ * getContentPreviewのレスポンスクラス
+ */
+export interface ResponseGetContentPreview {
+
+  IsSuccess: boolean;
+
+  PreviewUrl: string;
+
+  Content: Content;
 }

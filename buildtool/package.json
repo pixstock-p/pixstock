@@ -5,7 +5,8 @@
         "build:angular_corelib": "gulp build_angular_lib",
         "build:angular_app": "gulp build_angular_app",
         "all:angular": "npm-run-all build:angular_corelib build:angular_app",
-        "setup:pixstock": "gulp setup_pixstock"
+        "setup:pixstock": "gulp setup_pixstock",
+        "run:webpack": "gulp run:webpack"
     },
     "devDependencies": {
         "@angular/compiler": "^5.0.0",

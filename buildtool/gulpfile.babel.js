@@ -34,3 +34,8 @@ gulp.task('setup_pixstock', () => {
         .pipe(exec.reporter(reportOptions));
 });
 
+gulp.task('run:webpack', () => {
+    return gulp.src('gulpfile.babel.js')
+        .pipe(exec('npm run start --prefix ./../src/PixstockApp/Pixstock.Nc.App.Appearance', options))
+        .pipe(exec.reporter(reportOptions));
+});
